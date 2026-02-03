@@ -1,0 +1,112 @@
+# Requirements for Windows (WSL2 or Native)
+# Qwen3 Fine-tuning and Evaluation
+#
+# Installation:
+#   pip install -r requirements_windows.txt
+#
+# For CUDA support, install PyTorch first:
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+
+# =============================================================================
+# Core ML Frameworks
+# =============================================================================
+
+# PyTorch (install separately with CUDA support)
+# pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+torch>=2.1.0
+torchvision>=0.16.0
+
+# Transformers and related
+transformers>=4.40.0
+datasets>=2.18.0
+accelerate>=0.27.0
+peft>=0.10.0
+trl>=0.8.0
+bitsandbytes>=0.43.0
+
+# =============================================================================
+# Training Frameworks
+# =============================================================================
+
+# MS-SWIFT (Alibaba official)
+ms-swift>=3.0.0
+
+# Unsloth (fast training, low VRAM)
+# Install separately:
+# pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
+
+# DeepSpeed (optional, for distributed training)
+deepspeed>=0.14.0
+
+# =============================================================================
+# Inference
+# =============================================================================
+
+# llama.cpp Python bindings
+llama-cpp-python>=0.2.70
+
+# =============================================================================
+# Evaluation
+# =============================================================================
+
+# Translation metrics
+sacrebleu>=2.4.0
+
+# COMET (neural metric, optional - requires torch)
+unbabel-comet>=2.2.0
+
+# =============================================================================
+# Utilities
+# =============================================================================
+
+# Data processing
+sentencepiece>=0.2.0
+tokenizers>=0.19.0
+pandas>=2.2.0
+numpy>=1.26.0
+
+# Configuration
+pyyaml>=6.0.1
+
+# Progress bars
+tqdm>=4.66.0
+
+# Hugging Face Hub
+huggingface-hub>=0.22.0
+
+# =============================================================================
+# Optional: Flash Attention (WSL2 only)
+# =============================================================================
+# Install separately if using WSL2:
+# pip install flash-attn --no-build-isolation
+
+# =============================================================================
+# Optional: xformers (alternative to Flash Attention)
+# =============================================================================
+# pip install xformers
+
+# =============================================================================
+# Notes
+# =============================================================================
+#
+# 1. For WSL2 (recommended):
+#    - Install NVIDIA drivers on Windows
+#    - Install CUDA toolkit in WSL2
+#    - Flash Attention works in WSL2
+#
+# 2. For Native Windows:
+#    - Install CUDA toolkit from NVIDIA
+#    - Flash Attention may not work (use xformers instead)
+#    - Some packages may have limited functionality
+#
+# 3. For CPU-only (evaluation only):
+#    - Skip torch CUDA installation
+#    - Use: pip install torch torchvision
+#    - llama-cpp-python will use CPU
+#
+# 4. Unsloth installation:
+#    pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
+#    pip install --no-deps xformers trl peft accelerate bitsandbytes
+#
+# 5. Verify CUDA:
+#    python -c "import torch; print(torch.cuda.is_available())"
